@@ -1,16 +1,18 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@model IEnumerable<Product>
 <head>
     <title>Coffee Shop</title>
+    <link rel="stylesheet" href="~/css/shop.css" asp-append-version="true" />
 </head>
 <body>
     <h1>Shop Coffee</h1>
-
+    <div class="product-grid">
     @foreach (var item in Model)
     {
-        <img width="100" src="@item.ImageUrl" />
-        <h3>@item.Name</h3>
-        <p>@item.Price.ToString("C")</p>
+        <div class="product-card">
+            <img width="100" src="@item.ImageUrl" />
+            <h3>@item.Name</h3>
+            <p class="price">@item.Price.ToString("C")</p>
+        </div>
     }
+    </div>
 </body>
-</html>
