@@ -18,6 +18,7 @@ namespace CoffeShop.Controllers
 
         public IActionResult Index()
         {
+            //return View(productRepository.GetTrendingProducts());
             return View(productRepository.GetAllProducts());
         }
 
