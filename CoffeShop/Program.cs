@@ -9,8 +9,12 @@ builder.Services.AddDbContext<CoffeeshopDbContext>(o => o.UseSqlServer(builder.C
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-var app = builder.Build();
+builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>(ShoppingCartRepository.GetCart);
 
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+var app = builder.Build();
+app.UseSession();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -97,7 +97,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black show display-4" href="cart.html">
+                            <a class="nav-link link text-black show display-4" asp-controller="ShoppingCart" asp-action="Index">
                                 <span class="mobi-mbri mobi-mbri-shopping-bag mbr-iconfont mbr-iconfont-btn"><small>(0)</small></span>
                             </a>
                         </li>
@@ -135,7 +135,10 @@
                             <span class="currentcost mbr-fonts-style pr-2 display-2">@Model.Price.ToString("c")</span>
                         </div>
                         <div class="mbr-section-btn pt-3">
-                            <a href="" class="btn btn-primary display-4">
+                            <a asp-controller="ShoppingCart"
+                               asp-action="AddToShoppingCart"
+                               asp-route-pId="@Model.Id"
+                               class="btn btn-primary display-4">
                                 <span class="mbrib-cart-add mbr-iconfont mbr-iconfont-btn"></span>Add to cart&nbsp;
                             </a>
                         </div>
