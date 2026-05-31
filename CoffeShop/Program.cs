@@ -10,6 +10,7 @@ builder.Services.AddDbContext<CoffeeshopDbContext>(o => o.UseSqlServer(builder.C
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>(ShoppingCartRepository.GetCart);
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();

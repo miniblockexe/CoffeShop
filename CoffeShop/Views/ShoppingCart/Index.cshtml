@@ -59,9 +59,13 @@
                                             <h5 class="text-uppercase">Total price</h5>
                                             <h5>@Model.Sum(x => x.Qty * x.Product.Price).ToString("C")</h5>
                                         </div>
-                                        <button type="button" class="btn btn-primary w-100 text-center" data-mdb-ripple-color="dark">
-                                            Proceed
-                                        </button>
+                                        <a asp-controller="Orders" asp-action="Checkout">
+                                            <button type="button"
+                                                    class="btn btn-primary w-100 text-center"
+                                                    data-mdb-ripple-color="dark">
+                                                Proceed
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
