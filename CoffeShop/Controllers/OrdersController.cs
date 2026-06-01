@@ -1,9 +1,12 @@
 ﻿using CoffeShop.Models.Interfaces;
 using CoffeShop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CoffeShop.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private IOrderRepository orderRepository;
@@ -21,6 +24,8 @@ namespace CoffeShop.Controllers
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
+            order.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             orderRepository.PlaceOrder(order);
             shoppingCartRepository.ClearCart();
             HttpContext.Session.SetInt32("CartCount", 0);
@@ -29,6 +34,12 @@ namespace CoffeShop.Controllers
         public IActionResult CheckoutComplete()
         {
             return View();
+        }
+        public IActionResult MyOrders()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var orders = orderRepository.GetOrdersByUserId(userId!);
+            return View(orders);
         }
     }
 }

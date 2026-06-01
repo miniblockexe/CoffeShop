@@ -1,0 +1,115 @@
+﻿@model CoffeShop.Models.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section data-bs-version="5.1" class="form1 cid-contact" id="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8 col-md-10">
+
+                <h2 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
+                    <strong>Get in Touch</strong>
+                </h2>
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success text-center mb-3" role="alert">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <div class="card contact-card p-4">
+                    <p class="mbr-text mbr-fonts-style align-center display-7 mb-3">
+                        One of our team will be in contact with you shortly.
+                    </p>
+
+                    <form asp-action="Contact" asp-controller="Home" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <input asp-for="Name"
+                                   class="form-control"
+                                   placeholder="Your name" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="Your email" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea asp-for="Message"
+                                      class="form-control"
+                                      placeholder="Message"
+                                      rows="5"></textarea>
+                            <span asp-validation-for="Message" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-contact display-4">Send</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    #contact-section {
+        padding: 60px 0;
+        min-height: calc(100vh - 200px);
+    }
+
+    .contact-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+        .contact-card .form-control {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+            .contact-card .form-control::placeholder {
+                color: #aaa;
+            }
+
+            .contact-card .form-control:focus {
+                border-color: #c9a96e;
+                box-shadow: 0 0 0 0.15rem rgba(201,169,110,0.25);
+                outline: none;
+            }
+
+    .btn-contact {
+        background-color: #c9a96e;
+        border: none;
+        color: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        transition: background-color 0.2s ease;
+    }
+
+        .btn-contact:hover {
+            background-color: #b8935a;
+            color: #fff;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

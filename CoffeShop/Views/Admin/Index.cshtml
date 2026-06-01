@@ -1,0 +1,64 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-left-primary p-3" style="border-left: 4px solid #4e73df;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div style="font-size:0.75rem; font-weight:700; color:#4e73df; text-transform:uppercase;">Products</div>
+                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
+                </div>
+                <i class="fas fa-box fa-2x" style="color:#d1d3e2;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-success p-3" style="border-left: 4px solid #1cc88a;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div style="font-size:0.75rem; font-weight:700; color:#1cc88a; text-transform:uppercase;">Orders</div>
+                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
+                </div>
+                <i class="fas fa-shopping-cart fa-2x" style="color:#d1d3e2;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-info p-3" style="border-left: 4px solid #36b9cc;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div style="font-size:0.75rem; font-weight:700; color:#36b9cc; text-transform:uppercase;">Users</div>
+                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
+                </div>
+                <i class="fas fa-users fa-2x" style="color:#d1d3e2;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-warning p-3" style="border-left: 4px solid #f6c23e;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div style="font-size:0.75rem; font-weight:700; color:#f6c23e; text-transform:uppercase;">Roles</div>
+                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
+                </div>
+                <i class="fas fa-user-shield fa-2x" style="color:#d1d3e2;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Links</div>
+            <div class="card-body d-flex flex-column gap-2">
+                <a asp-action="Products" class="btn btn-outline-primary btn-sm"><i class="fas fa-box me-2"></i>Quản lý Products</a>
+                <a asp-action="Orders" class="btn btn-outline-success btn-sm"><i class="fas fa-shopping-cart me-2"></i>Quản lý Orders</a>
+                <a asp-action="Users" class="btn btn-outline-info btn-sm"><i class="fas fa-users me-2"></i>Quản lý Users</a>
+                <a asp-action="ManageRole" class="btn btn-outline-warning btn-sm"><i class="fas fa-user-shield me-2"></i>Phân quyền</a>
+            </div>
+        </div>
+    </div>
+</div>

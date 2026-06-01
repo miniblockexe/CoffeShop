@@ -2,9 +2,12 @@ using CoffeShop.Data;
 using CoffeShop.Models.Interfaces;
 using CoffeShop.Models.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CoffeeshopDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeShopDbContextConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<CoffeeshopDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -14,6 +17,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddRazorPages();
 var app = builder.Build();
 app.UseSession();
 // Configure the HTTP request pipeline.
@@ -27,6 +31,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.MapRazorPages();
 app.UseRouting();
 
 app.UseAuthorization();

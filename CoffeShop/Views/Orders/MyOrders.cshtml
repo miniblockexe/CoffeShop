@@ -1,0 +1,80 @@
+﻿@model IEnumerable<CoffeShop.Models.Order>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<section class="cid-myorders" style="padding: 40px 0; min-height: calc(100vh - 200px);">
+    <div class="container">
+
+        <h3 class="mbr-fonts-style display-5 mb-4">
+            <strong>List your orders</strong>
+        </h3>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+                Bạn chưa có đơn hàng nào.
+                <a asp-controller="Products" asp-action="Shop" class="alert-link">Mua sắm ngay!</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle" style="border-collapse: separate; border-spacing: 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #dee2e6;">
+                            <th style="width:40px; font-weight:600;">Stt</th>
+                            <th style="font-weight:600;">Time order</th>
+                            <th style="font-weight:600;">Detail</th>
+                            <th style="font-weight:600;">Shipping Address</th>
+                            <th style="font-weight:600; text-align:right;">Total</th>
+                            <th style="font-weight:600; text-align:center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int stt = 1;
+                        }
+                        @foreach (var order in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #f0f0f0; vertical-align: top;">
+                                <td style="padding-top:16px;">@stt</td>
+                                <td style="padding-top:16px; white-space:nowrap;">
+                                    @order.OrderPlaced.ToString("dd/MM/yyyy h:mm:ss tt")
+                                </td>
+                                <td>
+                                    @if (order.OrderDetails != null)
+                                    {
+                                        @foreach (var detail in order.OrderDetails)
+                                        {
+                                            <div class="d-flex align-items-center mb-2" style="gap: 10px;">
+                                                @if (detail.Product?.ImageUrl != null)
+                                                {
+                                                    <img src="@detail.Product.ImageUrl"
+                                                         alt="@detail.Product.Name"
+                                                         style="width:60px; height:50px; object-fit:cover; border-radius:4px;" />
+                                                }
+                                                <span class="mbr-fonts-style display-7">
+                                                    @detail.Quantity x @detail.Product?.Name x @detail.Price.ToString("0.00")
+                                                </span>
+                                            </div>
+                                        }
+                                    }
+                                </td>
+                                <td style="padding-top:16px;">@order.Address</td>
+                                <td style="padding-top:16px; text-align:right;">
+                                    @order.OrderTotal.ToString("0.00")
+                                </td>
+                                <td style="padding-top:16px; text-align:center;">
+                                    <span style="color: #28a745; font-weight: 500;">Success</span>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</section>

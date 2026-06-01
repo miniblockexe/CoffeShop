@@ -1,0 +1,60 @@
+@model IEnumerable<CoffeShop.Models.Order>
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-shopping-cart me-2"></i>Tất cả Orders</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Thời gian</th>
+                    <th>Khách hàng</th>
+                    <th>Detail</th>
+                    <th>Địa chỉ</th>
+                    <th style="text-align:right;">Total</th>
+                    <th style="text-align:center;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 1; }
+                @foreach (var order in Model)
+                {
+                    <tr style="vertical-align:top;">
+                        <td style="padding-top:14px;">@stt</td>
+                        <td style="padding-top:14px; white-space:nowrap;">
+                            @order.OrderPlaced.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+                        <td style="padding-top:14px;">
+                            <div>@order.FirstName @order.LastName</div>
+                            <small class="text-muted">@order.Email</small>
+                        </td>
+                        <td>
+                            @if (order.OrderDetails != null)
+                            {
+                                @foreach (var d in order.OrderDetails)
+                                {
+                                    <div class="d-flex align-items-center mb-1 gap-2">
+                                        @if (d.Product?.ImageUrl != null)
+                                        {
+                                            <img src="@d.Product.ImageUrl" width="48" height="40" alt="" />
+                                        }
+                                        <span style="font-size:0.83rem;">@d.Quantity x @d.Product?.Name x @d.Price.ToString("0.00")</span>
+                                    </div>
+                                }
+                            }
+                        </td>
+                        <td style="padding-top:14px;">@order.Address</td>
+                        <td style="padding-top:14px; text-align:right;">@order.OrderTotal.ToString("0.00")</td>
+                        <td style="padding-top:14px; text-align:center;">
+                            <span class="badge-success-soft">Success</span>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

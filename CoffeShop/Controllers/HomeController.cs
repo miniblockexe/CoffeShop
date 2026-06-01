@@ -27,6 +27,24 @@ namespace CoffeShop.Controllers
             return View();
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Contact(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["SuccessMessage"] = "One of our team will be in contact with you shortly.";
+                return RedirectToAction("Contact");
+            }
+
+            return View(model);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+@{
+    ViewData["Title"] = "Manage Role";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, IList<string>>;
+}
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-user-shield me-2"></i>Phân quyền User</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Email</th>
+                    <th>Role hiện tại</th>
+                    <th>Gán Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 1; }
+                @foreach (var user in Model)
+                {
+                    var roles = userRoles != null && userRoles.ContainsKey(user.Id)
+                        ? string.Join(", ", userRoles[user.Id])
+                        : "";
+                    <tr>
+                        <td>@stt</td>
+                        <td>@user.Email</td>
+                        <td><span class="badge-role">@(string.IsNullOrEmpty(roles) ? "User" : roles)</span></td>
+                        <td>
+                            <form asp-action="AssignRole" method="post" class="d-flex align-items-center gap-2">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <select name="role" class="form-select form-select-sm" style="width:140px;">
+                                    <option value="User">User</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">Gán</button>
+                            </form>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

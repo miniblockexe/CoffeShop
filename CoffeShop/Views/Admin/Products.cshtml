@@ -1,0 +1,59 @@
+@model IEnumerable<CoffeShop.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-box me-2"></i>Danh sách Product</span>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Branch</th>
+                    <th>Price</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 0; }
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@p.Name</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(p.ImageUrl))
+                            {
+                                <img src="@p.ImageUrl" width="60" height="50" alt="@p.Name" />
+                            }
+                        </td>
+                        <td>@p.Category</td>
+                        <td>@p.Branch</td>
+                        <td>@p.Price.ToString("0.00")</td>
+                        <td>
+                            <a class="btn-edit" asp-action="EditProduct" asp-route-id="@p.Id">Edit</a>
+                        </td>
+                        <td>
+                            <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Xóa sản phẩm này?')">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@p.Id" />
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+        <a asp-action="AddProduct" class="btn btn-primary btn-sm mt-2">
+            <i class="fas fa-plus me-1"></i>Add
+        </a>
+    </div>
+</div>

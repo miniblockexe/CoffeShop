@@ -1,5 +1,6 @@
 ﻿using CoffeShop.Data;
 using CoffeShop.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeShop.Models.Services
 {
@@ -36,6 +37,23 @@ namespace CoffeShop.Models.Services
 
             dbContext.Order.Add(order);
             dbContext.SaveChanges();
+        }
+        public IEnumerable<Order> GetOrdersByUserId(string userId)
+        {
+            return dbContext.Order
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.OrderPlaced)
+                .ToList();
+        }
+        public IEnumerable<Order> GetAllOrders()
+        {
+            return dbContext.Order
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .OrderByDescending(o => o.OrderPlaced)
+                .ToList();
         }
     }
 }

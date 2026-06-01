@@ -1,0 +1,53 @@
+@model CoffeShop.Models.Product
+@{
+    ViewData["Title"] = "Thêm Product";
+}
+
+<div class="card" style="max-width:600px;">
+    <div class="card-header"><i class="fas fa-plus me-2"></i>Thêm sản phẩm mới</div>
+    <div class="card-body">
+        <form asp-action="AddProduct" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-semibold">Tên sản phẩm</label>
+                <input asp-for="Name" class="form-control" placeholder="Nhập tên sản phẩm" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Detail" class="form-label fw-semibold">Mô tả</label>
+                <input asp-for="Detail" class="form-control" placeholder="Mô tả sản phẩm" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label fw-semibold">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Price" class="form-label fw-semibold">Giá</label>
+                    <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="Price" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Category" class="form-label fw-semibold">Category</label>
+                    <input asp-for="Category" class="form-control" placeholder="Tea, Coffee, ..." />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Branch" class="form-label fw-semibold">Branch</label>
+                <input asp-for="Branch" class="form-control" placeholder="Highland, Starbucks, ..." />
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="IsTrendingProduct" class="form-check-input" type="checkbox" />
+                <label asp-for="IsTrendingProduct" class="form-check-label fw-semibold">Trending Product</label>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-save me-1"></i>Lưu
+                </button>
+                <a asp-action="Products" class="btn btn-secondary btn-sm">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
