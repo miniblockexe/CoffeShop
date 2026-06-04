@@ -2,47 +2,101 @@
 @model IEnumerable<IdentityUser>
 @{
     ViewData["Title"] = "Manage Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var userRoles = ViewBag.UserRoles as Dictionary<string, IList<string>>;
 }
 
-<div class="card">
-    <div class="card-header"><i class="fas fa-user-shield me-2"></i>Phân quyền User</div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Phân quyền User</h1>
+</div>
+
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Admin" asp-action="Index">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Manage Role</li>
+    </ol>
+</nav>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách User & Role</h6>
+        <span class="badge badge-primary badge-pill">
+            @Model.Count() người dùng
+        </span>
+    </div>
     <div class="card-body">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Email</th>
-                    <th>Role hiện tại</th>
-                    <th>Gán Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int stt = 1; }
-                @foreach (var user in Model)
-                {
-                    var roles = userRoles != null && userRoles.ContainsKey(user.Id)
-                        ? string.Join(", ", userRoles[user.Id])
-                        : "";
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="rolesTable" width="100%" cellspacing="0">
+                <thead class="thead-light">
                     <tr>
-                        <td>@stt</td>
-                        <td>@user.Email</td>
-                        <td><span class="badge-role">@(string.IsNullOrEmpty(roles) ? "User" : roles)</span></td>
-                        <td>
-                            <form asp-action="AssignRole" method="post" class="d-flex align-items-center gap-2">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="userId" value="@user.Id" />
-                                <select name="role" class="form-select form-select-sm" style="width:140px;">
-                                    <option value="User">User</option>
-                                    <option value="Admin">Admin</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary btn-sm">Gán</button>
-                            </form>
-                        </td>
+                        <th style="width:60px;" class="text-center">STT</th>
+                        <th>Email</th>
+                        <th style="width:180px;" class="text-center">Role hiện tại</th>
+                        <th style="width:240px;" class="text-center">Gán Role</th>
                     </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @{
+                        int stt = 1;
+                    }
+                    @foreach (var user in Model)
+                    {
+                        var roles = userRoles != null && userRoles.ContainsKey(user.Id)
+                        ? string.Join(", ", userRoles[user.Id])
+                        : "User";
+
+                        var isAdmin = roles.Contains("Admin");
+                        var badgeClass = isAdmin ? "badge-danger" : "badge-secondary";
+
+                        <tr>
+                            <td class="text-center align-middle">@stt</td>
+                            <td class="align-middle">@user.Email</td>
+                            <td class="text-center align-middle">
+                                <span class="badge @badgeClass px-3 py-2" style="font-size:0.85em;">
+                                    @roles
+                                </span>
+                            </td>
+                            <td class="text-center align-middle">
+                                <form asp-action="AssignRole" method="post"
+                                      class="d-flex align-items-center justify-content-center">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <select name="role" class="custom-select custom-select-sm mr-2"
+                                            style="width:130px;">
+                                        <option value="User" selected="@(roles == "User"  ? "selected" : null)">User</option>
+                                        <option value="Admin" selected="@(roles == "Admin" ? "selected" : null)">Admin</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm">Gán</button>
+                                </form>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#rolesTable').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json'
+                },
+                columnDefs: [
+                    { orderable: false, targets: [2, 3] }
+                ],
+                pageLength: 10,
+                order: [[0, 'asc']]
+            });
+        });
+    </script>
+}

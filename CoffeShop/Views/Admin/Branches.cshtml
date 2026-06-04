@@ -1,0 +1,103 @@
+@model IEnumerable<CoffeShop.Models.Branch>
+@{
+    ViewData["Title"] = "Quản Lý Chi Nhánh";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản Lý Chi Nhánh</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-plus-circle mr-1"></i> Thêm Chi Nhánh Mới
+                </h6>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Admin" asp-action="AddBranch" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="branchName" class="font-weight-bold">Tên Chi Nhánh</label>
+                        <input type="text"
+                               class="form-control"
+                               id="branchName"
+                               name="Name"
+                               placeholder="Nhập tên chi nhánh..."
+                               required />
+                    </div>
+                    <div class="form-group">
+                        <label for="branchAddress" class="font-weight-bold">Địa Chỉ</label>
+                        <input type="text"
+                               class="form-control"
+                               id="branchAddress"
+                               name="Address"
+                               placeholder="Nhập địa chỉ chi nhánh..." />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save mr-1"></i> Lưu Chi Nhánh
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-store mr-1"></i> Danh Sách Chi Nhánh
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="branchTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên Chi Nhánh</th>
+                                <th>Địa Chỉ</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                int stt = 0;
+                                foreach (var branch in Model)
+                                {
+                                    <tr>
+                                        <td>@stt</td>
+                                        <td>@branch.Name</td>
+                                        <td>@branch.Address</td>
+                                        <td>
+                                            <form asp-controller="Admin" asp-action="DeleteBranch" method="post"
+                                                  onsubmit="return confirm('Bạn có chắc muốn xóa chi nhánh này?')">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@branch.Id" />
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    stt++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">
+                                        <i class="fas fa-inbox mr-2"></i>Chưa có chi nhánh nào.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

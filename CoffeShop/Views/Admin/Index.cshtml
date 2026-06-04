@@ -1,64 +1,312 @@
 @{
     ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row g-3 mb-4">
-    <div class="col-md-3">
-        <div class="card border-left-primary p-3" style="border-left: 4px solid #4e73df;">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div style="font-size:0.75rem; font-weight:700; color:#4e73df; text-transform:uppercase;">Products</div>
-                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
-                </div>
-                <i class="fas fa-box fa-2x" style="color:#d1d3e2;"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-left-success p-3" style="border-left: 4px solid #1cc88a;">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div style="font-size:0.75rem; font-weight:700; color:#1cc88a; text-transform:uppercase;">Orders</div>
-                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
-                </div>
-                <i class="fas fa-shopping-cart fa-2x" style="color:#d1d3e2;"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-left-info p-3" style="border-left: 4px solid #36b9cc;">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div style="font-size:0.75rem; font-weight:700; color:#36b9cc; text-transform:uppercase;">Users</div>
-                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
-                </div>
-                <i class="fas fa-users fa-2x" style="color:#d1d3e2;"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-left-warning p-3" style="border-left: 4px solid #f6c23e;">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div style="font-size:0.75rem; font-weight:700; color:#f6c23e; text-transform:uppercase;">Roles</div>
-                    <div style="font-size:1.5rem; font-weight:800; color:#333;">Manage</div>
-                </div>
-                <i class="fas fa-user-shield fa-2x" style="color:#d1d3e2;"></i>
-            </div>
-        </div>
-    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </a>
 </div>
 
-<div class="row g-3">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Quick Links</div>
-            <div class="card-body d-flex flex-column gap-2">
-                <a asp-action="Products" class="btn btn-outline-primary btn-sm"><i class="fas fa-box me-2"></i>Quản lý Products</a>
-                <a asp-action="Orders" class="btn btn-outline-success btn-sm"><i class="fas fa-shopping-cart me-2"></i>Quản lý Orders</a>
-                <a asp-action="Users" class="btn btn-outline-info btn-sm"><i class="fas fa-users me-2"></i>Quản lý Users</a>
-                <a asp-action="ManageRole" class="btn btn-outline-warning btn-sm"><i class="fas fa-user-shield me-2"></i>Phân quyền</a>
+<div class="row">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Doanh Thu (Tháng)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Đơn Hàng (Tháng)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">215</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Sản Phẩm
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-box fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Đơn Chờ Xử Lý
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<div class="row">
+
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Tổng Quan Doanh Thu</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                         aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Tùy chọn:</div>
+                        <a class="dropdown-item" href="#">Theo tuần</a>
+                        <a class="dropdown-item" href="#">Theo tháng</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Xuất báo cáo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Nguồn Doanh Thu</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink2"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                         aria-labelledby="dropdownMenuLink2">
+                        <div class="dropdown-header">Tùy chọn:</div>
+                        <a class="dropdown-item" href="#">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> Trực tiếp
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Online
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-info"></i> Khác
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Quản Lý Nhanh</h6>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Admin" asp-action="Products"
+                   class="btn btn-outline-primary btn-sm btn-block mb-2">
+                    <i class="fas fa-box mr-2"></i>Quản lý Sản Phẩm
+                </a>
+                <a asp-controller="Admin" asp-action="Orders"
+                   class="btn btn-outline-success btn-sm btn-block mb-2">
+                    <i class="fas fa-shopping-cart mr-2"></i>Quản lý Đơn Hàng
+                </a>
+                <a asp-controller="Admin" asp-action="Users"
+                   class="btn btn-outline-info btn-sm btn-block mb-2">
+                    <i class="fas fa-users mr-2"></i>Quản lý Người Dùng
+                </a>
+                <a asp-controller="Admin" asp-action="ManageRole"
+                   class="btn btn-outline-warning btn-sm btn-block">
+                    <i class="fas fa-user-shield mr-2"></i>Phân Quyền
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tiến Độ Hệ Thống</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="small font-weight-bold">
+                    Đơn Hàng Hoàn Thành <span class="float-right">20%</span>
+                </h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar"
+                         style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">
+                    Sản Phẩm Đã Bán <span class="float-right">40%</span>
+                </h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar"
+                         style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">
+                    Khách Hàng Mới <span class="float-right">60%</span>
+                </h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar"
+                         style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">
+                    Doanh Thu Tháng <span class="float-right">80%</span>
+                </h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">
+                    Mục Tiêu Năm <span class="float-right">Hoàn Thành!</span>
+                </h4>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">CoffeeShop</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                         src="~/img/undraw_posting_photo.svg" alt="CoffeeShop Illustration" />
+                </div>
+                <p>
+                    Chào mừng đến trang quản trị <strong>CoffeeShop</strong>.
+                    Quản lý sản phẩm, đơn hàng và người dùng một cách dễ dàng.
+                </p>
+                <a asp-controller="Admin" asp-action="Products">Xem danh sách sản phẩm &rarr;</a>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Trạng Thái Hệ Thống</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-primary text-white shadow">
+                            <div class="card-body py-2">
+                                Hệ thống
+                                <div class="text-white-50 small">Hoạt động bình thường</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-success text-white shadow">
+                            <div class="card-body py-2">
+                                Database
+                                <div class="text-white-50 small">Kết nối thành công</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-info text-white shadow">
+                            <div class="card-body py-2">
+                                Cache
+                                <div class="text-white-50 small">Đang hoạt động</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-warning text-white shadow">
+                            <div class="card-body py-2">
+                                Email
+                                <div class="text-white-50 small">Cần cấu hình</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/js/demo/chart-area-demo.js"></script>
+    <script src="~/js/demo/chart-pie-demo.js"></script>
+}

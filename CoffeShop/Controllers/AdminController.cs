@@ -13,17 +13,23 @@ namespace CoffeShop.Controllers
         private readonly IOrderRepository orderRepository;
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ICategoryRepository categoryRepository; 
+        private readonly IBranchRepository branchRepository;
 
         public AdminController(
             IProductRepository productRepository,
             IOrderRepository orderRepository,
             UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ICategoryRepository categoryRepository,
+            IBranchRepository branchRepository) 
         {
             this.productRepository = productRepository;
             this.orderRepository = orderRepository;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.categoryRepository = categoryRepository; 
+            this.branchRepository = branchRepository;
         }
         public IActionResult Index()
         {
@@ -144,6 +150,59 @@ namespace CoffeShop.Controllers
                 TempData["Success"] = $"Đã gán role {role} cho {user.UserName}";
             }
             return RedirectToAction("ManageRole");
+        }
+        public IActionResult Categories()
+        {
+            var categories = categoryRepository.GetAllCategories();
+            return View(categories);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                categoryRepository.AddCategory(category);
+                TempData["Success"] = "Thêm danh mục thành công!";
+            }
+            return RedirectToAction("Categories");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteCategory(int id)
+        {
+            categoryRepository.DeleteCategory(id);
+            TempData["Success"] = "Xóa danh mục thành công!";
+            return RedirectToAction("Categories");
+        }
+
+        public IActionResult Branches()
+        {
+            var branches = branchRepository.GetAllBranches();
+            return View(branches);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddBranch(Branch branch)
+        {
+            if (ModelState.IsValid)
+            {
+                branchRepository.AddBranch(branch);
+                TempData["Success"] = "Thêm chi nhánh thành công!";
+            }
+            return RedirectToAction("Branches");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteBranch(int id)
+        {
+            branchRepository.DeleteBranch(id);
+            TempData["Success"] = "Xóa chi nhánh thành công!";
+            return RedirectToAction("Branches");
         }
     }
 }

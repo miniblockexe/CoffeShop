@@ -1,59 +1,81 @@
 @model IEnumerable<CoffeShop.Models.Product>
 @{
     ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <span><i class="fas fa-box me-2"></i>Danh sách Product</span>
-    </div>
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Product</th>
-                    <th>Image</th>
-                    <th>Category</th>
-                    <th>Branch</th>
-                    <th>Price</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int stt = 0; }
-                @foreach (var p in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@p.Name</td>
-                        <td>
-                            @if (!string.IsNullOrEmpty(p.ImageUrl))
-                            {
-                                <img src="@p.ImageUrl" width="60" height="50" alt="@p.Name" />
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản Lý Sản Phẩm</h1>
+    <a asp-action="AddProduct" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus mr-1"></i> Thêm Sản Phẩm
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-box mr-1"></i> Danh Sách Sản Phẩm
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Sản Phẩm</th>
+                                <th>Hình Ảnh</th>
+                                <th>Danh Mục</th>
+                                <th>Chi Nhánh</th>
+                                <th>Giá</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int stt = 1;
                             }
-                        </td>
-                        <td>@p.Category</td>
-                        <td>@p.Branch</td>
-                        <td>@p.Price.ToString("0.00")</td>
-                        <td>
-                            <a class="btn-edit" asp-action="EditProduct" asp-route-id="@p.Id">Edit</a>
-                        </td>
-                        <td>
-                            <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Xóa sản phẩm này?')">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="id" value="@p.Id" />
-                                <button type="submit" class="btn-delete">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
-        <a asp-action="AddProduct" class="btn btn-primary btn-sm mt-2">
-            <i class="fas fa-plus me-1"></i>Add
-        </a>
+                            @foreach (var p in Model)
+                            {
+                                <tr>
+                                    <td>@stt</td>
+                                    <td>@p.Name</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                        {
+                                            <img src="@p.ImageUrl" width="60" height="50"
+                                                 alt="@p.Name" class="rounded" />
+                                        }
+                                    </td>
+                                    <td>@p.Category</td>
+                                    <td>@p.Branch</td>
+                                    <td>@p.Price.ToString("0.00") ₫</td>
+                                    <td>
+                                        <a class="btn btn-warning btn-sm"
+                                           asp-action="EditProduct" asp-route-id="@p.Id">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form asp-action="DeleteProduct" method="post"
+                                              onsubmit="return confirm('Xóa sản phẩm này?')">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@p.Id" />
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                stt++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
